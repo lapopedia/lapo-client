@@ -1,6 +1,9 @@
 # lapo-client
 
 > A VUE PWA project for create forum question answer
+> npm install -g ngrok
+> npm install
+> npm run dev
 
 ## Build Setup
 
