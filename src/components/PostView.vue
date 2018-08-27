@@ -1,10 +1,21 @@
 <template>
   <div class="waiting">
-    Not yet available
+    <input type="text" v-model="input_val"/>
+    <button v-on:click="showAlert">Submit</button>
   </div>
 </template>
 <script>
 export default {
+  data () {
+    return {
+      input_val: ''
+    }
+  },
+  methods: {
+    showAlert () {
+      alert('tess')
+    }
+  }
 }
 </script>
 <style scoped>
