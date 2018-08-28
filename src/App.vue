@@ -9,7 +9,10 @@
       <span class="mdl-layout-title">Kumpul Berbagi</span>
       <nav class="mdl-navigation">
         <router-link class="mdl-navigation__link" to="/" @click.native="hideMenu">Home</router-link>
-        <router-link class="mdl-navigation__link" to="/post" @click.native="hideMenu">Post a picture</router-link>
+        <router-link class="mdl-navigation__link" to="/login" @click.native="hideMenu">Login</router-link>
+        <router-link class="mdl-navigation__link" to="/register" @click.native="hideMenu">Register</router-link>
+        <router-link class="mdl-navigation__link" v-if="isLogin = true" to="/post" @click.native="hideMenu">Post a picture</router-link>
+        <label class="mdl-navigation__link" v-if="isLogin = true" @click="logout()">Logout</label>
       </nav>
     </div>
     <main class="mdl-layout__content">
@@ -25,9 +28,28 @@ require('material-design-lite')
 export default {
   name: 'app',
   methods: {
+    data () {
+      return {
+        isLogin: false
+      }
+    },
+
     hideMenu: function () {
       document.getElementsByClassName('mdl-layout__drawer')[0].classList.remove('is-visible')
       document.getElementsByClassName('mdl-layout__obfuscator')[0].classList.remove('is-visible')
+    },
+
+    checkToken () {
+      if (window.localStorage.getItem('token')) {
+        this.isLogin = true
+      } else {
+        this.isLogin = false
+      }
+    },
+
+    logout () {
+      localStorage.clear()
+      window.location.reload()
     }
   }
 }
