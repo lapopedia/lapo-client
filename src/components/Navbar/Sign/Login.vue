@@ -9,12 +9,35 @@
 </template>
 
 <script>
+import axios from '../../../Helper/axios.js'
 export default {
   data () {
     return {
       email_val: '',
-      password_val: ''
+      password_val: '',
+      statusError: ''
     }
+  },
+  methods: {
+    login () {
+      if (this.email_val === '' || this.password_val === '') {
+        this.showError('Username and Password can not empty !')
+      } else {
+        axios('POST', '/login', {email: this.email_val, password: this.password_val})
+          .then(response => {
+            if (response.data === 'success') {
+              window.localStorage.setItem('token', response.data.token)
+              window.location.reload()
+            } else {
+              this.showError(response.message)
+            }
+          })
+      }
+    }
+
+    // showError (message) {
+    //   this.statusError
+    // }
   }
 }
 </script>
