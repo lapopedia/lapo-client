@@ -1,6 +1,8 @@
 <template>
   <div class="login-container">
     <div class="login-content">
+      <input class="input" placeholder="Fullname" type="text" v-model="newUser.fullname_val"/> 
+      <input class="input" placeholder="Username" type="email" v-model="newUser.username_val"/> 
       <input class="input" placeholder="Email" type="email" v-model="newUser.email_val"/> 
       <input class="input" placeholder="Password" type="password" v-model="newUser.password_val"/> 
       <input class="input" placeholder="Confirm Password" type="password" v-model="newUser.confirm_password_val"/> 
@@ -16,6 +18,8 @@ export default {
   data () {
     return {
       newUser: {
+        fullname_val: '',
+        username_val: '',
         email_val: '',
         password_val: '',
         confirm_password_val: ''
@@ -30,7 +34,7 @@ export default {
       } else if (this.newUser.password_val !== this.newUser.confirm_password_val) {
         this.statusError = 'Your Password Not Match'
       } else {
-        axios('POST', '/register', {payload: this.newUser})
+        axios('POST', '/auth', {payload: this.newUser})
           .then(response => {
             if (response.data === 'success') {
               window.localStorage.setItem('token', response.data.token)

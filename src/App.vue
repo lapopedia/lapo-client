@@ -12,7 +12,7 @@
         <router-link class="mdl-navigation__link" to="/login" @click.native="hideMenu">Login</router-link>
         <router-link class="mdl-navigation__link" to="/register" @click.native="hideMenu">Register</router-link>
         <router-link class="mdl-navigation__link" v-if="isLogin = true" to="/post" @click.native="hideMenu">Post a picture</router-link>
-        <label class="mdl-navigation__link" v-if="isLogin = true" @click="logout()">Logout</label>
+        <router-link class="mdl-navigation__link" to='/' v-if="isLogin = true" @click="logout()">Logout</router-link>
       </nav>
     </div>
     <main class="mdl-layout__content">
