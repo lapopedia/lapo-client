@@ -10,7 +10,9 @@
     </div>
     <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
       <div class="comment">
-        <span>{{ this.pictures[$route.params.id].comment }}</span>
+        <label>{{ this.pictures[$route.params.id].comment }}</label>
+        <br/>
+        <input placeholder="Post Comment"/>
       </div>
       <div class="actions">
         <router-link class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" to="/post">
