@@ -1,11 +1,11 @@
 <template>
   <div class="login-container">
     <div class="login-content">
-      <input class="input" placeholder="Fullname" type="text" v-model="newUser.fullname_val"/> 
-      <input class="input" placeholder="Username" type="email" v-model="newUser.username_val"/> 
-      <input class="input" placeholder="Email" type="email" v-model="newUser.email_val"/> 
-      <input class="input" placeholder="Password" type="password" v-model="newUser.password_val"/> 
-      <input class="input" placeholder="Confirm Password" type="password" v-model="newUser.confirm_password_val"/> 
+      <input class="input" placeholder="Fullname" type="text" v-model="fullname_val"/> 
+      <input class="input" placeholder="Username" type="email" v-model="username_val"/> 
+      <input class="input" placeholder="Email" type="email" v-model="email_val"/> 
+      <input class="input" placeholder="Password" type="password" v-model="password_val"/> 
+      <input class="input" placeholder="Confirm Password" type="password" v-model="confirm_password_val"/> 
       <label>{{this.statusError}}</label>
     </div>
     <button type="success" @click="register()">Register</button>
@@ -17,30 +17,29 @@ import axios from '../../../Helper/axios.js'
 export default {
   data () {
     return {
-      newUser: {
-        fullname_val: '',
-        username_val: '',
-        email_val: '',
-        password_val: '',
-        confirm_password_val: ''
-      },
+      fullname_val: '',
+      username_val: '',
+      email_val: '',
+      password_val: '',
+      confirm_password_val: '',
       statusError: ''
     }
   },
   methods: {
     register () {
-      if (this.newUser.email_val === '' || this.newUser.password_val === '') {
-        this.statusError = 'Username and Password can not empty !'
-      } else if (this.newUser.password_val !== this.newUser.confirm_password_val) {
+      if (this.fullname_val === '' || this.username_val === '' || this.email_val === '' || this.password_val === '' || this.confirm_password_val === '') {
+        this.statusError = 'Data Register Cannot be Empty'
+      } else if (this.password_val !== this.confirm_password_val) {
         this.statusError = 'Your Password Not Match'
       } else {
-        axios('POST', '/auth', {payload: this.newUser})
+        axios('POST', '/auth', { fullname: this.fullname_val, username: this.username_val, email: this.email_val, password: this.password_val })
           .then(response => {
-            if (response.data === 'success') {
+            console.log(response)
+            if (response.data.message === 'Register successfully') {
               window.localStorage.setItem('token', response.data.token)
               window.location.reload()
             } else {
-              this.showError(response.message)
+              this.statusError = 'Something Gone Wrong'
             }
           })
       }
